@@ -38,7 +38,28 @@ const docTemplate = `{
                 }
             }
         },
-        "/todo/create": {
+        "/todos": {
+            "get": {
+                "description": "Lists all the todos existing in the DB without filters",
+                "tags": [
+                    "todos"
+                ],
+                "summary": "Todo List",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Success-array_models_Todo"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Error"
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "Allows you to create a todo by passing your todo structure",
                 "tags": [
@@ -78,7 +99,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/todo/get/:id": {
+        "/todos/:id": {
             "get": {
                 "description": "Allows you to get one item by its id",
                 "tags": [
@@ -115,32 +136,7 @@ const docTemplate = `{
                         }
                     }
                 }
-            }
-        },
-        "/todo/list": {
-            "get": {
-                "description": "Lists all the todos existing in the DB without filters",
-                "tags": [
-                    "todos"
-                ],
-                "summary": "Todo List",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/responses.Success-array_models_Todo"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/responses.Error"
-                        }
-                    }
-                }
-            }
-        },
-        "/todo/update": {
+            },
             "put": {
                 "description": "Allows you to update a todo by passing its id and the todo structure",
                 "tags": [

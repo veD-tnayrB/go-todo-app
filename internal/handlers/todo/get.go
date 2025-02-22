@@ -11,7 +11,7 @@ import (
 
 // @Summary Todo get
 // @Description Allows you to get one item by its id
-// @Router /todo/get/:id [get]
+// @Router /todos/:id [get]
 // @Param string query string true "string valid" maxlength(36)
 // @Version 1.0
 // @Tags todos

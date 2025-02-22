@@ -36,12 +36,12 @@ func main() {
 	todoHandler := todoHandler.TodoHandler{TodoService: &todoService}
 
 	router := gin.Default()
-	todoGroup := router.Group("/todo")
-	todoGroup.GET("/list", todoHandler.List)
-	todoGroup.GET("/get/:id", todoHandler.Get)
-	todoGroup.POST("/create", todoHandler.Create)
-	todoGroup.PUT("/update/:id", todoHandler.Update)
-	todoGroup.DELETE("/delete/:id", todoHandler.Remove)
+	todoGroup := router.Group("/todos")
+	todoGroup.GET("", todoHandler.List)
+	todoGroup.GET("/:id", todoHandler.Get)
+	todoGroup.POST("", todoHandler.Create)
+	todoGroup.PUT("/:id", todoHandler.Update)
+	todoGroup.DELETE("/:id", todoHandler.Remove)
 
 	// Documentation
 	router.GET("/documentation/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))

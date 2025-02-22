@@ -10,8 +10,8 @@ import (
 
 // @Summary Todo List
 // @Description Lists all the todos existing in the DB without filters
-// @BasePath /todo/list
-// @Router /todo/list [get]
+// @BasePath /todos
+// @Router /todos [get]
 // @Version 1.0
 // @Tags todos
 // @Success 200 {object} responses.Success[[]models.Todo]

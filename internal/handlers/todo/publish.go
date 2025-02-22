@@ -11,7 +11,7 @@ import (
 
 // @Summary Create todo
 // @Description Allows you to create a todo by passing your todo structure
-// @Router /todo/create [post]
+// @Router /todos [post]
 // @Version 1.0
 // @Tags todos
 // @Param todo body models.Todo true "Todo details"
@@ -40,7 +40,7 @@ func (h *TodoHandler) Create(ctx *gin.Context) {
 
 // @Summary Updating todo
 // @Description Allows you to update a todo by passing its id and the todo structure
-// @Router /todo/update [put]
+// @Router /todos/:id [put]
 // @Version 1.0
 // @Tags todos
 // @Param todo body models.Todo true "Todo details"
@@ -76,7 +76,7 @@ func (h *TodoHandler) Update(ctx *gin.Context) {
 
 // @Summary Removing todo
 // @Description Allows you to remove a todo by passing its id
-// @Router /todo/delete [delete]
+// @Router /todo/:id [delete]
 // @Version 1.0
 // @Tags todos
 // @Param id identifier string true "Todo id"
