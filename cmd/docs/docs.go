@@ -37,6 +37,148 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/todo/create": {
+            "post": {
+                "description": "Allows you to create a todo by passing your todo structure",
+                "tags": [
+                    "todos"
+                ],
+                "summary": "Create todo",
+                "parameters": [
+                    {
+                        "description": "Todo details",
+                        "name": "todo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Todo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Empty"
+                        }
+                    },
+                    "400": {
+                        "description": "Title is required",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Something went wrong",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/todo/get/:id": {
+            "get": {
+                "description": "Allows you to get one item by its id",
+                "tags": [
+                    "todos"
+                ],
+                "summary": "Todo get",
+                "parameters": [
+                    {
+                        "maxLength": 36,
+                        "type": "string",
+                        "description": "string valid",
+                        "name": "string",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Success-models_Todo"
+                        }
+                    },
+                    "400": {
+                        "description": "Id is required",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Something went wrong",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/todo/list": {
+            "get": {
+                "description": "Lists all the todos existing in the DB without filters",
+                "tags": [
+                    "todos"
+                ],
+                "summary": "Todo List",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Success-array_models_Todo"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/todo/update": {
+            "put": {
+                "description": "Allows you to update a todo by passing its id and the todo structure",
+                "tags": [
+                    "todos"
+                ],
+                "summary": "Updating todo",
+                "parameters": [
+                    {
+                        "description": "Todo details",
+                        "name": "todo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Todo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Empty"
+                        }
+                    },
+                    "400": {
+                        "description": "Id is required",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Something went wrong",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Error"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -56,6 +198,71 @@ const docTemplate = `{
             "properties": {
                 "message": {
                     "type": "string"
+                }
+            }
+        },
+        "models.Todo": {
+            "type": "object",
+            "properties": {
+                "completed": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "responses.Empty": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "description": "true",
+                    "type": "boolean"
+                }
+            }
+        },
+        "responses.Error": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "description": "false",
+                    "type": "boolean"
+                }
+            }
+        },
+        "responses.Success-array_models_Todo": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Todo"
+                    }
+                },
+                "status": {
+                    "description": "true",
+                    "type": "boolean"
+                }
+            }
+        },
+        "responses.Success-models_Todo": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.Todo"
+                },
+                "status": {
+                    "description": "true",
+                    "type": "boolean"
                 }
             }
         }

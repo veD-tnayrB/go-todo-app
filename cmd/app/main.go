@@ -6,6 +6,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 	_ "github.com/veD-tnayrB/todo-app/cmd/docs"
 	"github.com/veD-tnayrB/todo-app/common/db"
+	"github.com/veD-tnayrB/todo-app/common/models"
 	todoHandler "github.com/veD-tnayrB/todo-app/internal/handlers/todo"
 	todoRepository "github.com/veD-tnayrB/todo-app/internal/repositories/todo"
 	todoService "github.com/veD-tnayrB/todo-app/internal/services/todo"
@@ -14,8 +15,8 @@ import (
 // Lets gonna stop here for now, tomorrow i need to work
 
 // @TODO: Bryant motherfucker, heres the todos (tdah-prof aclarations):
-// - Standarized Responses
-// - Standarized Errors FOR LAYER AND FOR MODULE
+// - Standarized Responses [READY]
+// - Standarized Errors FOR LAYER AND FOR MODULE [READY]
 // - Generate the anotations for OPENAPI and fix the routes so it can be OPENAPI with the standar you motherfucker
 // - Implement a logger foor error handling (Could consider centralized logging for scalability.)
 // - Unit Testing and mocking
@@ -25,8 +26,12 @@ import (
 func main() {
 	db := db.NewDB()
 
+	// Simulates the existing data in DB
+	db["1"] = models.Todo{Id: "1", Title: "Code", Completed: false}
+	db["2"] = models.Todo{Id: "2", Title: "Eat", Completed: true}
+
 	// Dependency injection :)
-	todoRepository := todoRepository.TodoRepository{DB: *db}
+	todoRepository := todoRepository.TodoRepository{DB: db}
 	todoService := todoService.TodoService{TodoRepository: &todoRepository}
 	todoHandler := todoHandler.TodoHandler{TodoService: &todoService}
 

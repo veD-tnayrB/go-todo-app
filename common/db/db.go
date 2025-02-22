@@ -4,9 +4,9 @@ import (
 	"github.com/veD-tnayrB/todo-app/common/models"
 )
 
-// i dont remember how to initialize a map in go...
 type DB map[string]models.Todo
 
-func NewDB() *DB {
-	return &DB{}
+func NewDB() DB {
+	// this is returning the direction of where db is stored, thats correct
+	return DB{}
 }

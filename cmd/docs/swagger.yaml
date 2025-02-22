@@ -11,6 +11,49 @@ definitions:
       message:
         type: string
     type: object
+  models.Todo:
+    properties:
+      completed:
+        type: boolean
+      id:
+        type: string
+      title:
+        type: string
+    type: object
+  responses.Empty:
+    properties:
+      status:
+        description: "true"
+        type: boolean
+    type: object
+  responses.Error:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      status:
+        description: "false"
+        type: boolean
+    type: object
+  responses.Success-array_models_Todo:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/models.Todo'
+        type: array
+      status:
+        description: "true"
+        type: boolean
+    type: object
+  responses.Success-models_Todo:
+    properties:
+      data:
+        $ref: '#/definitions/models.Todo'
+      status:
+        description: "true"
+        type: boolean
+    type: object
 info:
   contact: {}
 paths:
@@ -29,4 +72,97 @@ paths:
       summary: Check Health
       tags:
       - Internal
+  /todo/create:
+    post:
+      description: Allows you to create a todo by passing your todo structure
+      parameters:
+      - description: Todo details
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/models.Todo'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.Empty'
+        "400":
+          description: Title is required
+          schema:
+            $ref: '#/definitions/responses.Error'
+        "500":
+          description: Something went wrong
+          schema:
+            $ref: '#/definitions/responses.Error'
+      summary: Create todo
+      tags:
+      - todos
+  /todo/get/:id:
+    get:
+      description: Allows you to get one item by its id
+      parameters:
+      - description: string valid
+        in: query
+        maxLength: 36
+        name: string
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.Success-models_Todo'
+        "400":
+          description: Id is required
+          schema:
+            $ref: '#/definitions/responses.Error'
+        "500":
+          description: Something went wrong
+          schema:
+            $ref: '#/definitions/responses.Error'
+      summary: Todo get
+      tags:
+      - todos
+  /todo/list:
+    get:
+      description: Lists all the todos existing in the DB without filters
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.Success-array_models_Todo'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/responses.Error'
+      summary: Todo List
+      tags:
+      - todos
+  /todo/update:
+    put:
+      description: Allows you to update a todo by passing its id and the todo structure
+      parameters:
+      - description: Todo details
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/models.Todo'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.Empty'
+        "400":
+          description: Id is required
+          schema:
+            $ref: '#/definitions/responses.Error'
+        "500":
+          description: Something went wrong
+          schema:
+            $ref: '#/definitions/responses.Error'
+      summary: Updating todo
+      tags:
+      - todos
 swagger: "2.0"
