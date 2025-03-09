@@ -10,7 +10,6 @@ type TodoRepository interface {
 	Remove(id string) error
 }
 
-// UserRepository?
 type TodoService struct {
 	TodoRepository TodoRepository
 }

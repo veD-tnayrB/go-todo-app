@@ -14,11 +14,11 @@ import (
 
 // Lets gonna stop here for now, tomorrow i need to work
 
-// @TODO: Bryant motherfucker, heres the todos (tdah-prof aclarations):
-// - Standarized Responses [READY]
-// - Standarized Errors FOR LAYER AND FOR MODULE [READY]
-// - Generate the anotations for OPENAPI and fix the routes so it can be OPENAPI with the standar you motherfucker
+// @TODO: Bryant, take care:
+// Im gonna stop with the logger because looks like a deeper topic and ill love to have the time
+// to do research before doing something stupid
 // - Implement a logger foor error handling (Could consider centralized logging for scalability.)
+
 // - Unit Testing and mocking
 // - Dockerization??? Maybe
 // - Autodeployment when pushing to the repo
