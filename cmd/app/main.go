@@ -14,8 +14,6 @@ import (
 )
 
 // @TODO: Bryant, take care:
-// - Implement a logger foor error handling (Could consider centralized logging for scalability.)
-
 // - Unit Testing
 // - rate limiter
 // - Dockerization??? Maybe

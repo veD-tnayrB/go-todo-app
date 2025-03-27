@@ -1,2 +1,4 @@
 {"time":"2025-03-26T23:08:09.440759897-04:00","level":"INFO","msg":"GO HGOGOGOGOO","attrs":{"asdadasd":"123","message":"no"}}
 {"time":"2025-03-26T23:08:09.44083221-04:00","level":"INFO","msg":"GO MESSAGE","attrs":{}}
+{"time":"2025-03-26T23:11:29.904150682-04:00","level":"INFO","msg":"GO HGOGOGOGOO","message":"no","asdadasd":"123"}
+{"time":"2025-03-26T23:11:29.904190716-04:00","level":"INFO","msg":"GO MESSAGE"}

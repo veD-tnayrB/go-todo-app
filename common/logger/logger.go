@@ -1,10 +1,6 @@
 package logger
 
 import (
-	"encoding/json"
-	"errors"
-	"fmt"
-	"io/fs"
 	"log/slog"
 	"os"
 	"time"
@@ -14,13 +10,7 @@ type Logger struct {
 	logger      *slog.Logger
 	logFolder   string
 	currentfile *os.File
-}
-
-type logEntry struct {
-	Time  time.Time              `json:"time"`
-	Level slog.Level             `json:"level"`
-	Msg   string                 `json:"msg"`
-	Attrs map[string]interface{} `json:"attrs"`
+	filename    string
 }
 
 const (
@@ -44,13 +34,13 @@ func (l *Logger) generateBaseFolder() {
 	}
 
 	err := os.MkdirAll(l.logFolder, dirPerms)
-	if err != nil && !errors.Is(err, fs.ErrExist) {
+	if err != nil {
 		panic(err)
 	}
 }
 
 func (l *Logger) generateDayFile() {
-	filename := time.Now().Format("02-01-2006")
+	filename := l.getDayFileName()
 	path := l.logFolder + "/" + filename + ".txt"
 
 	if l.currentfile != nil {
@@ -63,41 +53,31 @@ func (l *Logger) generateDayFile() {
 	}
 
 	l.currentfile = file
+	l.filename = filename
 	l.logger = slog.New(slog.NewJSONHandler(l.currentfile, nil))
 }
 
-func (l *Logger) Info(mgs string, args ...interface{}) {
-	fmt.Printf("%v", args)
-	l.log(mgs, slog.LevelInfo, args...)
+func (l *Logger) getDayFileName() string {
+	return time.Now().Format("02-01-2006")
 }
 
-func (l *Logger) log(msg string, level slog.Level, args ...interface{}) {
-	formattedArgs := map[string]interface{}{}
-
-	if len(args) > 0 {
-		if len(args)%2 != 0 {
-			panic("Arguments must be in key-value pairs")
-		}
-		for i := 0; i < len(args); i += 2 {
-			key, ok := args[i].(string)
-			if !ok {
-				panic("Key must be a string")
-			}
-			formattedArgs[key] = args[i+1]
-		}
+func (l *Logger) ensureDailyRotation() {
+	if l.getDayFileName() != l.filename {
+		l.generateDayFile()
 	}
+}
 
-	entry := logEntry{
-		Time:  time.Now(),
-		Msg:   msg,
-		Level: level,
-		Attrs: formattedArgs,
-	}
+func (l *Logger) Info(mgs string, args ...interface{}) {
+	l.ensureDailyRotation()
+	l.logger.Info(mgs, args...)
+}
 
-	data, err := json.Marshal(entry)
-	if err != nil {
-		panic(err)
-	}
+func (l *Logger) Error(mgs string, args ...interface{}) {
+	l.ensureDailyRotation()
+	l.logger.Error(mgs, args...)
+}
 
-	l.currentfile.WriteString(string(data) + "\n")
+func (l *Logger) Debug(mgs string, args ...interface{}) {
+	l.ensureDailyRotation()
+	l.logger.Debug(mgs, args...)
 }
