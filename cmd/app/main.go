@@ -6,25 +6,30 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 	_ "github.com/veD-tnayrB/todo-app/cmd/docs"
 	"github.com/veD-tnayrB/todo-app/common/db"
+	"github.com/veD-tnayrB/todo-app/common/logger"
 	"github.com/veD-tnayrB/todo-app/common/models"
 	todoHandler "github.com/veD-tnayrB/todo-app/internal/handlers/todo"
 	todoRepository "github.com/veD-tnayrB/todo-app/internal/repositories/todo"
 	todoService "github.com/veD-tnayrB/todo-app/internal/services/todo"
 )
 
-// Lets gonna stop here for now, tomorrow i need to work
-
 // @TODO: Bryant, take care:
-// Im gonna stop with the logger because looks like a deeper topic and ill love to have the time
-// to do research before doing something stupid
 // - Implement a logger foor error handling (Could consider centralized logging for scalability.)
 
-// - Unit Testing and mocking
+// - Unit Testing
+// - rate limiter
 // - Dockerization??? Maybe
 // - Autodeployment when pushing to the repo
 
 func main() {
 	db := db.NewDB()
+	logger, err := logger.NewLogger("logs")
+	if err != nil {
+		panic(err)
+	}
+
+	logger.Info("GO HGOGOGOGOO", "message", "no", "asdadasd", "123")
+	logger.Info("GO MESSAGE")
 
 	// Simulates the existing data in DB
 	db["1"] = models.Todo{Id: "1", Title: "Code", Completed: false}
