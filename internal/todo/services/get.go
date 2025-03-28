@@ -5,16 +5,16 @@ import (
 )
 
 func (s *TodoService) Get(id string) (*models.Todo, error) {
-	s.Logger.Info("Service: Get service method executed")
+	s.Logger.Info("Service: Handling the GET method")
 
 	if id == "" {
-		s.Logger.Warn("Service: Missing id in request", "error", ErrIdIsRequired)
+		s.Logger.Warn("Service: Missing id in request", "id", id, "error", ErrIdIsRequired)
 		return nil, ErrIdIsRequired
 	}
 
 	todo, err := s.TodoRepository.GetById(id)
 	if err != nil {
-		s.Logger.Error("Service: Error getting the todo", "error", err)
+		s.Logger.Error("Service: Error getting the todo", "id", id, "error", err)
 		return nil, ErrGettingTodo
 	}
 

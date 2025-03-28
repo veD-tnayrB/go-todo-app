@@ -1,15 +1,16 @@
 package service
 
 import (
-	"errors"
-
 	"github.com/veD-tnayrB/todo-app/common/models"
 )
 
 func (s *TodoService) List() (*[]*models.Todo, error) {
+	s.Logger.Info("Service: Handling the LIST method")
 	todos, err := s.TodoRepository.GetAll()
+
 	if err != nil {
-		return nil, errors.New("ERROR_WHILE_GETTING_THE_TODOS")
+		s.Logger.Error("Service: Error while trying to get the todo list", "error", err)
+		return nil, ErrGettingTodo
 	}
 
 	return todos, nil

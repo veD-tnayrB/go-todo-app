@@ -1,0 +1,12 @@
+{"time":"2025-03-28T01:26:45.579261133-04:00","level":"INFO","msg":"="}
+{"time":"2025-03-28T01:26:45.579324061-04:00","level":"INFO","msg":"Handler: Handling GET request","id":"1"}
+{"time":"2025-03-28T01:26:45.579337235-04:00","level":"INFO","msg":"Service: Get service method executed"}
+{"time":"2025-03-28T01:26:55.426705502-04:00","level":"INFO","msg":"="}
+{"time":"2025-03-28T01:26:55.426745136-04:00","level":"INFO","msg":"Handler: Handling GET request","id":"1"}
+{"time":"2025-03-28T01:26:55.426753412-04:00","level":"INFO","msg":"Service: Get service method executed"}
+{"time":"2025-03-28T01:26:58.690565668-04:00","level":"INFO","msg":"="}
+{"time":"2025-03-28T01:26:58.691474547-04:00","level":"INFO","msg":"Handler: Handling GET request","id":"1"}
+{"time":"2025-03-28T01:26:58.691489505-04:00","level":"INFO","msg":"Service: Get service method executed"}
+{"time":"2025-03-28T01:26:58.854426526-04:00","level":"INFO","msg":"="}
+{"time":"2025-03-28T01:26:58.854558022-04:00","level":"INFO","msg":"Handler: Handling GET request","id":"1"}
+{"time":"2025-03-28T01:26:58.854580795-04:00","level":"INFO","msg":"Service: Get service method executed"}
