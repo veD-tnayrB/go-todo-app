@@ -8,9 +8,9 @@ import (
 	"github.com/veD-tnayrB/todo-app/common/db"
 	"github.com/veD-tnayrB/todo-app/common/logger"
 	"github.com/veD-tnayrB/todo-app/common/models"
-	todoHandler "github.com/veD-tnayrB/todo-app/internal/handlers/todo"
-	todoRepository "github.com/veD-tnayrB/todo-app/internal/repositories/todo"
-	todoService "github.com/veD-tnayrB/todo-app/internal/services/todo"
+	todoHandler "github.com/veD-tnayrB/todo-app/internal/todohandlers/todo"
+	todoRepository "github.com/veD-tnayrB/todo-app/internal/todorepositories/todo"
+	todoService "github.com/veD-tnayrB/todo-app/internal/todoservices/todo"
 )
 
 // @TODO: Bryant, take care:

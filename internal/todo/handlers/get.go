@@ -6,7 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/veD-tnayrB/todo-app/common/models"
 	"github.com/veD-tnayrB/todo-app/common/responses"
-	"github.com/veD-tnayrB/todo-app/internal/errors"
 )
 
 // @Summary Todo get
@@ -21,7 +20,7 @@ import (
 func (h *TodoHandler) Get(ctx *gin.Context) {
 	id := ctx.Param("id")
 	if id == "" {
-		err := responses.Error{Status: false, Code: 400, Message: errors.IdIsRequired.Error()}
+		err := responses.Error{Status: false, Code: 400, Message: ErrIdIsRequired.Error()}
 		ctx.JSON(http.StatusBadRequest, err)
 	}
 

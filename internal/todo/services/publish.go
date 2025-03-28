@@ -3,23 +3,22 @@ package service
 import (
 	"github.com/google/uuid"
 	"github.com/veD-tnayrB/todo-app/common/models"
-	"github.com/veD-tnayrB/todo-app/internal/errors"
 )
 
 func (s *TodoService) Create(param *models.Todo) error {
 	param.Id = uuid.NewString()
 
 	if param.Title == "" {
-		return errors.TitleIsRequired
+		return ErrTitleIsRequired
 	}
 
 	err := s.TodoRepository.Insert(param)
 	if err != nil {
-		if err == errors.RecordAlreadyExists {
+		if err == ErrRecordAlreadyExists {
 			return err
 		}
 
-		return errors.ErrorSaving
+		return ErrorSaving
 	}
 
 	return nil
@@ -27,20 +26,20 @@ func (s *TodoService) Create(param *models.Todo) error {
 
 func (s *TodoService) Update(param *models.Todo) error {
 	if param.Id == "" {
-		return errors.IdIsRequired
+		return ErrIdIsRequired
 	}
 
 	if param.Title == "" {
-		return errors.TitleIsRequired
+		return ErrTitleIsRequired
 	}
 
 	err := s.TodoRepository.Update(param.Id, param)
 	if err != nil {
-		if err == errors.RecordNotExists {
+		if err == ErrRecordNotExists {
 			return err
 		}
 
-		return errors.ErrorUpdating
+		return ErrorUpdating
 	}
 
 	return nil
@@ -48,15 +47,15 @@ func (s *TodoService) Update(param *models.Todo) error {
 
 func (s *TodoService) Remove(id string) error {
 	if id == "" {
-		return errors.IdIsRequired
+		return ErrIdIsRequired
 	}
 
 	err := s.TodoRepository.Remove(id)
 	if err != nil {
-		if err == errors.RecordNotExists {
+		if err == ErrRecordNotExists {
 			return err
 		}
-		return errors.ErrorRemoving
+		return ErrorRemoving
 	}
 
 	return nil
