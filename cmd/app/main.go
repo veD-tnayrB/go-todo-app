@@ -8,9 +8,9 @@ import (
 	"github.com/veD-tnayrB/todo-app/common/db"
 	"github.com/veD-tnayrB/todo-app/common/logger"
 	"github.com/veD-tnayrB/todo-app/common/models"
-	todoHandler "github.com/veD-tnayrB/todo-app/internal/todohandlers/todo"
-	todoRepository "github.com/veD-tnayrB/todo-app/internal/todorepositories/todo"
-	todoService "github.com/veD-tnayrB/todo-app/internal/todoservices/todo"
+	todoHandler "github.com/veD-tnayrB/todo-app/internal/todo/handlers"
+	todoRepository "github.com/veD-tnayrB/todo-app/internal/todo/repositories"
+	todoService "github.com/veD-tnayrB/todo-app/internal/todo/services"
 )
 
 // @TODO: Bryant, take care:
@@ -26,17 +26,14 @@ func main() {
 		panic(err)
 	}
 
-	logger.Info("GO HGOGOGOGOO", "message", "no", "asdadasd", "123")
-	logger.Info("GO MESSAGE")
-
 	// Simulates the existing data in DB
 	db["1"] = models.Todo{Id: "1", Title: "Code", Completed: false}
 	db["2"] = models.Todo{Id: "2", Title: "Eat", Completed: true}
 
 	// Dependency injection :)
-	todoRepository := todoRepository.TodoRepository{DB: db}
-	todoService := todoService.TodoService{TodoRepository: &todoRepository}
-	todoHandler := todoHandler.TodoHandler{TodoService: &todoService}
+	todoRepository := todoRepository.TodoRepository{DB: db, Logger: logger}
+	todoService := todoService.TodoService{TodoRepository: &todoRepository, Logger: logger}
+	todoHandler := todoHandler.TodoHandler{TodoService: &todoService, Logger: logger}
 
 	router := gin.Default()
 	todoGroup := router.Group("/todos")

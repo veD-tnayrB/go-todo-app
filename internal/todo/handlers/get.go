@@ -19,15 +19,22 @@ import (
 // @Failure 500 {object} responses.Error "Something went wrong"
 func (h *TodoHandler) Get(ctx *gin.Context) {
 	id := ctx.Param("id")
+	h.Logger.Info("Handler: Handling GET request", "id", id)
+
 	if id == "" {
-		err := responses.Error{Status: false, Code: 400, Message: ErrIdIsRequired.Error()}
+		message := ErrIdIsRequired.Error()
+		h.Logger.Warn("Handler: Missing id in request", "error", message)
+		err := responses.Error{Status: false, Code: 400, Message: message}
 		ctx.JSON(http.StatusBadRequest, err)
+		return
 	}
 
 	todo, err := h.TodoService.Get(id)
 	if err != nil {
+		h.Logger.Error("Handler: Todo get service failed", "error", err.Error())
 		err := responses.Error{Status: false, Code: 500, Message: err.Error()}
 		ctx.JSON(http.StatusInternalServerError, err)
+		return
 	}
 
 	ctx.JSON(http.StatusOK, responses.Success[*models.Todo]{Status: true, Data: todo})

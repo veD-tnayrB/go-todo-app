@@ -1,2 +1,0 @@
-{"time":"2025-03-28T00:01:02.365051521-04:00","level":"INFO","msg":"GO HGOGOGOGOO","message":"no","asdadasd":"123"}
-{"time":"2025-03-28T00:01:02.365089712-04:00","level":"INFO","msg":"GO MESSAGE"}

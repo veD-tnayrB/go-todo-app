@@ -6,6 +6,13 @@ import (
 	"time"
 )
 
+type LoggerContract interface {
+	Info(mgs string, args ...interface{})
+	Error(mgs string, args ...interface{})
+	Debug(mgs string, args ...interface{})
+	Warn(mgs string, args ...interface{})
+}
+
 type Logger struct {
 	logger      *slog.Logger
 	logFolder   string
@@ -80,4 +87,9 @@ func (l *Logger) Error(mgs string, args ...interface{}) {
 func (l *Logger) Debug(mgs string, args ...interface{}) {
 	l.ensureDailyRotation()
 	l.logger.Debug(mgs, args...)
+}
+
+func (l *Logger) Warn(mgs string, args ...interface{}) {
+	l.ensureDailyRotation()
+	l.logger.Warn(mgs, args...)
 }

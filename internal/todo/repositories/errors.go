@@ -7,4 +7,5 @@ import (
 var (
 	ErrRecordNotExists     = baseErrors.New("record not exists")
 	ErrRecordAlreadyExists = baseErrors.New("record already exists")
+	ErrIdIsRequired        = baseErrors.New("id is required")
 )

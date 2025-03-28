@@ -1,18 +1,21 @@
 package service
 
 import (
-	"errors"
-
 	"github.com/veD-tnayrB/todo-app/common/models"
 )
 
 func (s *TodoService) Get(id string) (*models.Todo, error) {
+	s.Logger.Info("Service: Get service method executed")
+
 	if id == "" {
-		return nil, errors.New("ID_IS_REQUIRED")
+		s.Logger.Warn("Service: Missing id in request", "error", ErrIdIsRequired)
+		return nil, ErrIdIsRequired
 	}
+
 	todo, err := s.TodoRepository.GetById(id)
 	if err != nil {
-		return nil, errors.New("ERROR_WHILE_GETTING_THE_TODO")
+		s.Logger.Error("Service: Error getting the todo", "error", err)
+		return nil, ErrGettingTodo
 	}
 
 	return todo, nil

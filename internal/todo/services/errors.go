@@ -12,4 +12,5 @@ var (
 	ErrorRemoving          = baseErrors.New("something went wrong while trying to remove the record")
 	ErrRecordNotExists     = baseErrors.New("record not exists")
 	ErrRecordAlreadyExists = baseErrors.New("record already exists")
+	ErrGettingTodo         = baseErrors.New("error getting the todo")
 )

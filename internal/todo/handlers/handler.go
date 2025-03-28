@@ -1,6 +1,9 @@
 package handler
 
-import "github.com/veD-tnayrB/todo-app/common/models"
+import (
+	"github.com/veD-tnayrB/todo-app/common/logger"
+	"github.com/veD-tnayrB/todo-app/common/models"
+)
 
 type TodoService interface {
 	List() (*[]*models.Todo, error)
@@ -11,4 +14,5 @@ type TodoService interface {
 }
 type TodoHandler struct {
 	TodoService TodoService
+	Logger      logger.LoggerContract
 }
