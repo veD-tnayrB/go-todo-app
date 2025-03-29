@@ -21,7 +21,6 @@ import (
 )
 
 // @TODO: Bryant, take care:
-// - rate limiter
 // - Unit Testing
 // - Dockerization??? Maybe
 // - Autodeployment when pushing to the repo
