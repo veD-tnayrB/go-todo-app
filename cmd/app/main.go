@@ -49,16 +49,30 @@ func main() {
 		panic("something went wrong while getting the refresh time environment variable")
 	}
 
-	rateLimiter := rate_limiter.NewRateLimiter(int(maxRequest), time.Duration(refreshTime)*time.Second)
+	rateLimiter, err := rate_limiter.NewRateLimiter(int(maxRequest), time.Duration(refreshTime)*time.Second)
+	if err != nil {
+		panic(err)
+	}
 
 	// Simulates the existing data in DB
 	db["1"] = models.Todo{Id: "1", Title: "Code", Completed: false}
 	db["2"] = models.Todo{Id: "2", Title: "Eat", Completed: true}
 
 	// Dependency injection :)
-	todoRepository := todoRepository.TodoRepository{DB: db, Logger: logger}
-	todoService := todoService.TodoService{TodoRepository: &todoRepository, Logger: logger}
-	todoHandler := todoHandler.TodoHandler{TodoService: &todoService, Logger: logger}
+	todoRepository, err := todoRepository.NewTodoRepository(db, logger)
+	if err != nil {
+		panic(err)
+	}
+
+	todoService, err := todoService.NewTodoService(todoRepository, logger)
+	if err != nil {
+		panic(err)
+	}
+
+	todoHandler, err := todoHandler.NewTodoHandler(todoService, logger)
+	if err != nil {
+		panic(err)
+	}
 
 	router := gin.Default()
 	router.Use(middlewares.RateLimiterMiddleware(rateLimiter))

@@ -13,8 +13,16 @@ type RateLimiter struct {
 	LastTimeChecked time.Time
 }
 
-func NewRateLimiter(tokens int, refreshTime time.Duration) *RateLimiter {
-	return &RateLimiter{MaxTokens: tokens, Tokens: tokens, RefreshTime: refreshTime, LastTimeChecked: time.Now()}
+func NewRateLimiter(tokens int, refreshTime time.Duration) (*RateLimiter, error) {
+	if tokens <= 0 {
+		return nil, ErrInvalidTokensNumber
+	}
+
+	if refreshTime <= 0 {
+		return nil, ErrInvalidRefreshTime
+	}
+
+	return &RateLimiter{MaxTokens: tokens, Tokens: tokens, RefreshTime: refreshTime, LastTimeChecked: time.Now()}, nil
 }
 
 func (r *RateLimiter) CheckSpace() bool {

@@ -11,4 +11,6 @@ var (
 	ErrErrorRemoving   = baseErrors.New("something went wrong while removing")
 	ErrTitleIsRequired = baseErrors.New("title is required")
 	ErrErrorSaving     = baseErrors.New("error saving")
+	ErrServiceRequired = baseErrors.New("service is required for todo handlers")
+	ErrLoggerRequired  = baseErrors.New("logger is required for todo repository")
 )

@@ -16,3 +16,15 @@ type TodoHandler struct {
 	TodoService TodoService
 	Logger      logger.LoggerContract
 }
+
+func NewTodoHandler(service TodoService, logger *logger.Logger) (*TodoHandler, error) {
+	if service == nil {
+		return nil, ErrServiceRequired
+	}
+
+	if logger == nil {
+		return nil, ErrLoggerRequired
+	}
+
+	return &TodoHandler{TodoService: service, Logger: logger}, nil
+}
