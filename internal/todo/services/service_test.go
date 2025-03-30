@@ -13,7 +13,7 @@ import (
 )
 
 func setupService(t *testing.T) (*service.TodoService, db.DB) {
-	logger, err := logger.NewLogger("testing")
+	logger, err := logger.NewLogger("tests")
 	if err != nil {
 		t.Fatalf("logger wasnt created, cant proceed with the case: %s\n", err)
 	}
