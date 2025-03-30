@@ -25,7 +25,7 @@ func (h *TodoHandler) List(ctx *gin.Context) {
 		return
 	}
 
-	response := responses.Success[*[]*models.Todo]{
+	response := responses.Success[[]*models.Todo]{
 		Status: true,
 		Data:   todos,
 	}

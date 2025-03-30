@@ -6,7 +6,7 @@ import (
 )
 
 type TodoService interface {
-	List() (*[]*models.Todo, error)
+	List() ([]*models.Todo, error)
 	Get(id string) (*models.Todo, error)
 	Create(params *models.Todo) error
 	Update(params *models.Todo) error
