@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"strconv"
 	"time"
@@ -22,13 +23,15 @@ import (
 
 // @TODO: Bryant, take care:
 // - Unit Testing
-// - Dockerization??? Maybe
+// - Dockerization Yes.
 // - Autodeployment when pushing to the repo
 
 func main() {
 	err := gotenv.Load()
 	if err != nil {
-		panic("error while trying to load the environment variables")
+		message := "error while trying to load the environment variables"
+		fmt.Printf(message+"%s\n", err)
+		panic(message)
 	}
 
 	db := db.NewDB()
