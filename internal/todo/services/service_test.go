@@ -158,7 +158,7 @@ func TestUpdate(t *testing.T) {
 		},
 		{
 			name:          "Updating not existing record",
-			expectedError: service.ErrRecordNotExists,
+			expectedError: repository.ErrRecordNotExists,
 			param:         &models.Todo{Id: "5", Title: "Do homework", Completed: true},
 		},
 		{
@@ -205,7 +205,7 @@ func TestRemove(t *testing.T) {
 		},
 		{
 			name:          "Removing not existing record",
-			expectedError: service.ErrRecordNotExists,
+			expectedError: repository.ErrRecordNotExists,
 			id:            "2",
 		},
 	}

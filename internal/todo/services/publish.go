@@ -6,6 +6,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/veD-tnayrB/todo-app/common/models"
+	repository "github.com/veD-tnayrB/todo-app/internal/todo/repositories"
 )
 
 func (s *TodoService) Create(param *models.Todo) error {
@@ -46,7 +47,7 @@ func (s *TodoService) Update(param *models.Todo) error {
 	err := s.TodoRepository.Update(param.Id, param)
 	if err != nil {
 		fmt.Printf("1: \"%s\" | \"%s\" | \"%v\"\n", err, ErrRecordNotExists, errors.Is(err, ErrRecordNotExists))
-		if errors.Is(err, ErrRecordNotExists) {
+		if errors.Is(err, repository.ErrRecordNotExists) {
 			fmt.Printf("2: %s\n", err)
 
 			s.Logger.Warn("Service: Record to updating dont exists", "param", param)
@@ -68,7 +69,7 @@ func (s *TodoService) Remove(id string) error {
 
 	err := s.TodoRepository.Remove(id)
 	if err != nil {
-		if err == ErrRecordNotExists {
+		if errors.Is(err, repository.ErrRecordNotExists) {
 			s.Logger.Warn("Service: Record to remove dont exists", "id", id)
 			return err
 		}
