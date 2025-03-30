@@ -1,22 +1,29 @@
-package repository_test
+package repository
 
 import (
+	"github.com/veD-tnayrB/todo-app/common/db"
 	"github.com/veD-tnayrB/todo-app/common/models"
-	repository "github.com/veD-tnayrB/todo-app/internal/todo/repositories"
 )
 
 type TodoRepositoryMock struct {
-	DB map[string]models.Todo
+	DB db.DB
+}
+
+func NewTodoRepositoryMock(DB db.DB) (*TodoRepositoryMock, error) {
+	if DB == nil {
+		return nil, ErrDBRequired
+	}
+	return &TodoRepositoryMock{DB: DB}, nil
 }
 
 func (r *TodoRepositoryMock) GetById(id string) (*models.Todo, error) {
 	if id == "" {
-		return nil, repository.ErrIdIsRequired
+		return nil, ErrIdIsRequired
 	}
 
 	todo, exists := r.DB[id]
 	if !exists {
-		return nil, repository.ErrRecordNotExists
+		return nil, ErrRecordNotExists
 	}
 	return &todo, nil
 }
@@ -34,7 +41,7 @@ func (r *TodoRepositoryMock) GetAll() ([]*models.Todo, error) {
 
 func (r *TodoRepositoryMock) Insert(params *models.Todo) error {
 	if _, exists := r.DB[params.Id]; exists {
-		return repository.ErrRecordAlreadyExists
+		return ErrRecordAlreadyExists
 	}
 
 	r.DB[params.Id] = *params
@@ -43,7 +50,7 @@ func (r *TodoRepositoryMock) Insert(params *models.Todo) error {
 
 func (r *TodoRepositoryMock) Update(id string, params *models.Todo) error {
 	if _, exists := r.DB[params.Id]; !exists {
-		return repository.ErrRecordNotExists
+		return ErrRecordNotExists
 	}
 
 	r.DB[params.Id] = *params
@@ -52,7 +59,7 @@ func (r *TodoRepositoryMock) Update(id string, params *models.Todo) error {
 
 func (r *TodoRepositoryMock) Remove(id string) error {
 	if _, exists := r.DB[id]; !exists {
-		return repository.ErrRecordNotExists
+		return ErrRecordNotExists
 	}
 
 	delete(r.DB, id)

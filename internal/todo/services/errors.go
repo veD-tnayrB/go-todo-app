@@ -15,4 +15,5 @@ var (
 	ErrGettingTodo          = baseErrors.New("error getting the todo")
 	ErrRepositoryIsRequired = baseErrors.New("repository is required for todo service")
 	ErrLoggerIsRequired     = baseErrors.New("logger is required for todo service")
+	ErrDBIsRequired         = baseErrors.New("db is required for todo service")
 )

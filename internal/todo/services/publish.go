@@ -1,6 +1,9 @@
 package service
 
 import (
+	"errors"
+	"fmt"
+
 	"github.com/google/uuid"
 	"github.com/veD-tnayrB/todo-app/common/models"
 )
@@ -42,7 +45,10 @@ func (s *TodoService) Update(param *models.Todo) error {
 
 	err := s.TodoRepository.Update(param.Id, param)
 	if err != nil {
-		if err == ErrRecordNotExists {
+		fmt.Printf("1: \"%s\" | \"%s\" | \"%v\"\n", err, ErrRecordNotExists, errors.Is(err, ErrRecordNotExists))
+		if errors.Is(err, ErrRecordNotExists) {
+			fmt.Printf("2: %s\n", err)
+
 			s.Logger.Warn("Service: Record to updating dont exists", "param", param)
 			return err
 		}

@@ -15,7 +15,7 @@ func (s *TodoService) Get(id string) (*models.Todo, error) {
 	todo, err := s.TodoRepository.GetById(id)
 	if err != nil {
 		s.Logger.Error("Service: Error getting the todo", "id", id, "error", err)
-		return nil, ErrGettingTodo
+		return nil, ErrRecordNotExists
 	}
 
 	return todo, nil
