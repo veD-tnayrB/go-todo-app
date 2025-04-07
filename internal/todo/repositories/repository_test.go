@@ -27,6 +27,8 @@ func setupRepo(t *testing.T) *repository.TodoRepository {
 }
 
 func TestInitializaton(t *testing.T) {
+	t.Fatalf("force fail")
+
 	t.Run("Check instanciation API", func(t *testing.T) {
 		t.Run("Check with Logger in nil", func(t *testing.T) {
 			_, err := repository.NewTodoRepository(make(db.DB), nil)
