@@ -1,2 +1,5 @@
 tests
 main
+bin/*
+.env
+logs

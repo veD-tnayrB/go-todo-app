@@ -22,17 +22,11 @@ import (
 )
 
 // @TODO: Bryant, take care:
-// - Unit Testing
 // - Dockerization Yes.
 // - Autodeployment when pushing to the repo
 
 func main() {
-	err := gotenv.Load()
-	if err != nil {
-		message := "error while trying to load the environment variables"
-		fmt.Printf(message+"%s\n", err)
-		panic(message)
-	}
+	gotenv.Load()
 
 	db := db.NewDB()
 	logger, err := logger.NewLogger("logs")
@@ -41,8 +35,10 @@ func main() {
 	}
 
 	maxRequestStr := os.Getenv("MAX_REQUEST")
+	fmt.Printf("max request value BRYANT: %s\n", maxRequestStr)
 	maxRequest, err := strconv.Atoi(maxRequestStr)
 	if err != nil {
+		fmt.Printf("error: %s\n", err)
 		panic("something went wrong while getting the max request environment variable")
 	}
 
