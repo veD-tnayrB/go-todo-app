@@ -22,7 +22,6 @@ import (
 )
 
 // @TODO: Bryant, take care:
-// - Dockerization Yes.
 // - Autodeployment when pushing to the repo
 
 func main() {
