@@ -22,7 +22,7 @@ import (
 )
 
 // @TODO: Bryant, take care:
-// - Autodeployment when pushing to the repo
+// - Autodeployment and testing when pushing to the repo
 
 func main() {
 	gotenv.Load()
