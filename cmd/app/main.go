@@ -83,5 +83,5 @@ func main() {
 
 	// Documentation
 	router.GET("/documentation/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
-	router.Run(":5002")
+	router.Run(":5001")
 }
