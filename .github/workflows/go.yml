@@ -47,35 +47,37 @@ jobs:
               run: |
                   docker push ${{ secrets.DOCKER_USERNAME }}/todo-api:latest
 
-    upload-and-deploy:
-        name: 🚀 Upload & Deploy on VPS
+    upload-vps:
+        name: Upload & Run on VPS
         runs-on: ubuntu-latest
         needs: build-and-push
 
         steps:
-            - name: 📥 Checkout code
+            - name: 📥 Checkout repo
               uses: actions/checkout@v3
 
-            - name: 🗑️ Delete old deploy.sh (if any)
+            # ✅ 1. Create the directory in the VPS (if it doesn't exist)
+            - name: 🛠️ Prepare VPS folders
               uses: appleboy/ssh-action@master
               with:
                   host: ${{ secrets.VPS_HOST }}
                   username: ${{ secrets.VPS_USER }}
                   key: ${{ secrets.VPS_SSH_KEY }}
-                  script: |
-                      rm -f ~/services/todo-api/deploy.sh
+                  script: mkdir -p ~/services/todo-api
 
-            - name: 📤 Upload new deploy.sh
+            # ✅ 2. Upload deploy.sh
+            - name: 📤 Upload deploy.sh
               uses: appleboy/scp-action@master
               with:
                   host: ${{ secrets.VPS_HOST }}
                   username: ${{ secrets.VPS_USER }}
                   key: ${{ secrets.VPS_SSH_KEY }}
                   source: ./scripts/deploy.sh
-                  overwrite: true # Optional: forces overwriting existing script
                   target: ~/services/todo-api/
+                  overwrite: true
 
-            - name: 🚀 Execute deploy.sh
+            # ✅ 3. Make deploy.sh executable and run it
+            - name: 🚀 Run deploy.sh on VPS
               uses: appleboy/ssh-action@master
               with:
                   host: ${{ secrets.VPS_HOST }}
