@@ -55,6 +55,7 @@ func main() {
 	// Simulates the existing data in DB
 	db["1"] = models.Todo{Id: "1", Title: "Code", Completed: false}
 	db["2"] = models.Todo{Id: "2", Title: "Eat", Completed: true}
+	db["3"] = models.Todo{Id: "3", Title: "Finish this project", Completed: true}
 
 	// Dependency injection :)
 	todoRepository, err := todoRepository.NewTodoRepository(db, logger)
