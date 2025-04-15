@@ -86,4 +86,5 @@ jobs:
                   key: ${{ secrets.VPS_SSH_KEY }}
                   script: |
                       chmod +x ~/services/todo-api/deploy.sh
+                      export DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
                       ~/services/todo-api/deploy.sh
