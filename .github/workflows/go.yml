@@ -74,7 +74,7 @@ jobs:
                   key: ${{ secrets.VPS_SSH_KEY }}
                   source: ./scripts/deploy.sh
                   target: ~/services/todo-api/
-                  strip_components: 1 # ✅ removes the 'scripts/' folder from the path
+                  strip_components: 2 # ✅ removes the 'scripts/' folder from the path
                   overwrite: true
 
             # ✅ 3. Make deploy.sh executable and run it
